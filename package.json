@@ -1,0 +1,45 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "dance website",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.12.1",
+    "npm": ">=9.3.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently  \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --legacy-peer-deps --prefix client && npm run build --prefix client"
+  },
+  "author": "isabelle bidou",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.290.0",
+    "@aws-sdk/cloudfront-signer": "^3.316.0",
+    "@aws-sdk/s3-request-presigner": "^3.290.0",
+    "body-parser": "^1.20.1",
+    "concurrently": "^7.6.0",
+    "cookie-session": "^2.0.0",
+    "express": "^4.18.2",
+    "express-sslify": "^1.2.0",
+    "final-form": "^4.20.9",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.6.3",
+    "mongoose": "^6.8.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.20",
+    "passport": "^0.5.3",
+    "passport-google-oauth20": "^2.0.0",
+    "react-final-form": "^6.5.9",
+    "react-hook-form": "^7.41.0",
+    "react-scripts": "^5.0.1",
+    "sharp": "^0.31.3",
+    "stripe": "^11.3.0",
+    "uuid": "^9.0.0",
+    "xml2js": "^0.4.23"
+  }
+}

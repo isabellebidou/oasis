@@ -1,0 +1,407 @@
+@media screen and (max-width: 800px) and (orientation: portrait) {
+
+
+  #login fieldset:first-child,
+  #upload fieldset:first-child,
+  #updatedb fieldset:first-child {
+    width: 96%;
+    padding: 2%;
+  }
+
+  input {
+    width: 100%;
+    height: 2em;
+    font-size: large;
+  }
+
+  /* https://stackoverflow.com/questions/15901030/reset-remove-css-styles-for-element-only */
+  .usersetinput,
+  .usersetlabel {
+    width: auto;
+    font-size: medium;
+  }
+
+  .col {
+    -moz-column-count: 1;
+    /* Firefox */
+    -webkit-column-count: 1;
+    /* Safari and Chrome */
+    column-count: 1;
+    -moz-column-gap: 40px;
+    /* Firefox */
+    -webkit-column-gap: 40px;
+    /* Safari and Chrome */
+    column-gap: 40px;
+    -moz-column-rule: 4px outset white;
+    /* Firefox */
+    -webkit-column-rule: 4px outset white;
+    /* Safari and Chrome */
+    column-rule: 4px outset white;
+    width: 100%;
+  }
+
+  .sets-grid-container {
+    margin: auto;
+    color: rgba(43, 135, 98, 0.89);
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto;
+    grid-row-gap: 1em;
+    /* background-color: #2196F3;  Comment this out later to remove the background color when not needed */
+    padding: 5px;
+  }
+
+  .header {
+    width: 100%;
+    height: 10%;
+    top: 0%;
+    left: 0%;
+    margin-bottom: 5%;
+  }
+
+  .authentication {
+    display: none;
+  }
+
+  p {
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+  }
+
+  .grid-container, .shop-grid-container {
+    color: rgba(26, 152, 61, 0.89);
+    margin: auto;
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto;
+    grid-gap: 0em;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    /* background-color: #2196F3;  Comment this out later to remove the background color when not needed */
+  }
+
+  .maincontent {
+    color: rgb(180, 25, 25);
+    position: fixed;
+    height: 95%;
+    width: 100%;
+    right: 0%;
+    bottom: 0%;
+    font-size: large;
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+  }
+  .video{
+    width:90% ;
+    height:auto 
+  }
+  fieldset {
+    padding-top: 0em;
+  }
+
+  .headertitle {
+    position: absolute;
+    width: 35%;
+    font-style: oblique;
+    left: 5%;
+    font-size: 1.5em;
+    top: 1%;
+    font-family: "Brush Script MT", "Lucida Console", Monaco, monospace;
+  }
+
+  #details {
+    position: fixed;
+    left: 2%;
+    top: 5%;
+    max-width: 80%;
+    max-height: 15%;
+    color: rgba(25, 98, 194, 0.356);
+    font-size: 1em;
+    z-index: 1.5;
+    font-family: "Brush Script MT", "Lucida Console", Monaco, monospace;
+  }
+
+  .displayimage {
+    width: 96%;
+    left: 1%;
+    padding-top: 1em;
+  }
+  .me{
+    
+   min-width: 40%;
+    border-radius: 50%;
+    padding: 1em;
+  
+  }
+  .uploadjsonbutton {
+    visibility: hidden;
+  }
+
+  .tooltip {
+    position: static;
+
+  }
+
+  .back {
+    position: absolute;
+    bottom: 0em;
+    left: 1em;
+    font-size: 1em;
+    visibility: visible;
+    z-index: 2;
+  }
+
+  .next {
+    position: absolute;
+    bottom: 0em;
+    right: 1em;
+    font-size: 1em;
+    visibility: visible;
+    z-index: 2;
+  }
+
+  .detailimage {
+    position: fixed;
+    top: 2%;
+    left: 25%;
+
+    width: 50%;
+  }
+
+  .detailform {
+    position: absolute;
+    height: 80%;
+    width: 96%;
+    left: 2%;
+    bottom: 0%;
+    overflow-y: scroll;
+  }
+
+  .submit {
+    margin-top: 1em;
+    width: 50%;
+  }
+
+  
+
+  .footer {
+    width: 100%;
+    height: 5%;
+
+    left: 0%;
+    margin-bottom: 5%;
+
+  }
+
+
+
+  
+
+  .button,
+  button {
+
+    font-size: 2em;
+    border-radius: 8%;
+    margin: 0.4em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+
+
+    cursor: pointer;
+  }
+
+  .rightbutton {
+    display: block;
+    margin: auto;
+    clear: both;
+
+  }
+
+  #mobilemenu {
+    position: fixed;
+    top: 8%;
+
+    right: 0.5em;
+    background: -webkit-linear-gradient(bottom,
+        rgba(217, 217, 217, 0.7),
+        white,
+        rgba(217, 217, 217, 0.7) white);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom,
+        rgba(217, 217, 217, 0.7),
+        rgba(255, 255, 255, 0.9),
+        white,
+        rgba(255, 255, 255, 0.9),
+        rgba(217, 217, 217, 0.7));
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(top,
+        rgba(217, 217, 217, 0.7),
+        rgba(255, 255, 255, 0.9),
+        white,
+        rgba(255, 255, 255, 0.9),
+        rgba(217, 217, 217, 0.7));
+    /* the standard */
+    background: linear-gradient(to bottom,
+        rgba(217, 217, 217, 0.7),
+        rgba(255, 255, 255, 0.9),
+        white,
+        rgba(255, 255, 255, 0.9),
+        rgba(217, 217, 217, 0.7));
+    width: auto;
+    text-shadow: 0px 0px #000000;
+    -webkit-box-shadow: 14px 10px 24px 0px rgba(217, 217, 217, 0.3);
+    -moz-box-shadow: 14px 10px 24px 0px rgba(217, 217, 217, 0.3);
+    box-shadow: 14px 10px 24px 0px rgba(217, 217, 217, 0.3);
+    padding: 2%;
+    z-index: 70;
+    border-radius: 10%;
+    height: 92%;
+    width: 100%;
+    overflow-y: auto;
+  }
+
+  .mobilemenuli, .credits {
+    padding: 1em;
+    margin: auto auto;
+    
+    width: 90%;
+    
+    z-index: 50;
+
+    border-radius: 5%;
+    font-style: oblique;
+  }
+
+  #menubutton {
+    position: fixed;
+    font-style: oblique;
+    top: 0.1em;
+    right: 0.1em;
+    visibility: visible;
+    display: inline;
+    z-index: 50;
+    padding: 0.2em;
+    margin: 0.2em;
+    border-radius: 10%;
+  }
+
+  .left {
+    position: fixed;
+    width: 100%;
+    height: 20%;
+    padding: 5%;
+    opacity: 50%;
+    top: 0%;
+
+
+  }
+  .actionbook{
+
+    padding: 1em;
+    margin: auto auto;
+    bottom: 20%;
+    
+  }
+
+  .right {
+    position: absolute;
+    width: 100%;
+    padding: 5%;
+    top: 40%;
+    height: 200%;
+
+    overflow-y: auto;
+
+  }
+
+  .imgcontainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .diplayplant {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    display: block;
+
+  }
+
+  .actionbook {
+    position: fixed;
+    bottom: 6%;
+    right: 0em;
+    background-color: #45a049;
+    color: #fff;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    height: fit-content;
+    width: fit-content;
+    z-index: 50;
+  
+  }
+  .actionsign{
+    margin: auto auto;
+    display: block;
+  
+  }
+  .page{
+    padding-top: 7%;
+    padding-bottom: 6%;
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .navigation-container {
+
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .nav-link {
+    
+    padding: 15px;
+    margin-bottom: 1em;
+    
+  }
+  .imgsolo {
+
+    width: 90%;
+    
+  }
+  .affiliatelogo{
+    width: 70%;
+
+  }
+  .itemp{
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  .item{
+    max-width: 100%;
+  }
+
+  
+
+  
+}
