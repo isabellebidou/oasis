@@ -14,12 +14,10 @@ module.exports = (app) => {
   const UserData = mongoose.model("danceuserdata");
 
   app.get("/api/users_all", requireLogin, requireAdminAccess, async (req, res) => {
-
-
     const users = await User.aggregate([
       {
         $lookup: {
-          from: "userdatas",
+          from: "feedbacks",
           let: { userId: "$_id" },
           pipeline: [
             {
@@ -28,20 +26,31 @@ module.exports = (app) => {
               }
             }
           ],
-          as: "data"
+          as: "feedbacks"
+        }
+      },
+      {
+        $addFields: {
+          hasUnattendedFeedback: {
+            $size: {
+              $filter: {
+                input: "$feedbacks",
+                cond: { $eq: ["$$this.dateCompleted", null] }
+              }
+            }
+          }
         }
       },
       {
         $sort: {
-          "data.name": 1
+          hasUnattendedFeedback: -1
         }
-
       }
-
     ]);
+  
     res.send(users);
   });
-
+  
 
   app.get("/api/selected_user/:id", async (req, res) => {
     try {

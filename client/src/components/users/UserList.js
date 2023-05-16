@@ -22,40 +22,57 @@ class UserList extends Component {
       pathname: '/users/dashboard'
     });
   };
-
+  //{JSON.stringify(user)}
   renderUsers() {
     return this.props.users.map(user => {
       return (
+
 
         <div key={user._id} className=" " onClick={() => this.handleClick(user._id)}>
 
           <p className="itemp photoThumbnail">
 
-            type: {user.type} email: {user.email}
-            
-            <br />id: {user._id}
-            {user.data.length > 0 &&
-            <span>
-            <br />{user.data[0].fname} {user.data[0].lname} 
-            <br />dob: {new Date(user.data[0].dob).toLocaleDateString()}
+            type: {user.type} <br />email: {user.email}<br />
+            membership end: {new Date(user.hasMembership).toLocaleDateString()}<br />
 
-            <br />
-            </span>}
+            user id: {user._id}
+            <h2>Feedbacks booked</h2>
+            <ul>
+              {user.feedbacks.map((feedback) => (
+                <li key={feedback._id}>
+                  <span>Expectations: {feedback.expectations}</span> <br />
+                  <span>date booked: {new Date(feedback.dateSent).toLocaleDateString()}</span> <br />
+                  {!feedback.dateCompleted &&
+                    <span className="flag">New Feedback booked! </span>
+                  }
+                  {feedback.dateCompleted &&
+                    <span>date Completed: {new Date(feedback.dateCompleted).toLocaleDateString()}</span>
+                  }
+
+                  {/* Render other properties as needed */}
+                </li>
+              ))}
+            </ul>
           </p>
-
         </div>
+
 
       );
 
+
     });
+
   }
 
 
   render() {
     return (
       <div className="page">
+        <fieldset>
+          <legend><h2> Users Dashboard </h2></legend>
 
-        <div className="grid-container">{this.renderUsers()}</div>
+          <div className="grid-container">{this.renderUsers()}</div>
+        </fieldset>
 
       </div>
     );

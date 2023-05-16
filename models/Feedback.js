@@ -10,6 +10,9 @@ const feedbackSchema = new Schema ({
     dateSent: Date,
     dateCompleted: {type: Date, default:null},
     expectations:String,
+    pdfPath : String,
+    pdfUrl: String
+    
     
 })
 

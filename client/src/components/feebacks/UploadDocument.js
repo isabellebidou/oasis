@@ -4,49 +4,27 @@ import { connect } from "react-redux";
 import {  logError } from "../../utils/utils";
 
 import axios from "axios";
-//const steps = ["maya","shimmy", "arabic", "corkscrew turn", "propellor turn", "egyptian", "hip bumps", "arbic hip twist 1/2", "turkish shimmy 1/2", "single, double bumps", "bodywave", "arabic shimmy with arms and turns", "sahra turn", "triple egyptian", "egyptian sevillana", "wrap around turn", "triangle step", "chico", "meduza", "reshamka spin", "push forward and back", "double back", "strong arm 1", "strong arm 2","strong arm 3","spins", "arabic double spin"]
-//const steps = ["maya","shimmy", "arabic", "corkscrew turn", "propellor turn", "egyptian", "hip bumps", "arbic hip twist 1/2", "turkish shimmy 1/2", "single, double bumps", "bodywave", "arabic shimmy with arms and turns", "sahra turn", "triple egyptian", "egyptian sevillana", "wrap around turn", "triangle step", "chico", "meduza", "reshamka spin", "push forward and back", "double back", "strong arm 1", "strong arm 2","strong arm 3","spins", "arabic double spin"]
 
 //https://www.youtube.com/watch?v=McF22__Jz_I&t=372s&ab_channel=V%E1%BB%89%C4%90%E1%BA%B7ng
 //https://codesandbox.io/s/comment-product-yelj6?file=/package.json
-function UploadDocument({ auth }) {
+function UploadDocument({ feedbackId, stepName }) {
     const [document, setDocument] = useState('');
     const [visibility, setVisibility] = useState("hidden");
-    const [selectedVideo, setVideo] = useState("");//
-    const [selectedStepName, setStepName] = useState("");//
-    
-    useEffect(() => {
-        fetchSteps();
-    }, []);
-    
-    const fetchSteps = async () => {
-        const userData = await fetch(`/api/steps/`);
-        const items = await userData.json();
-        setSteps(items);
 
+    const handleDocument = (event) => {
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        setDocument(selectedFile);
+      }
     };
     
-   
-  useEffect(() => {
-  }, [auth]);
-
-
-   const handleDocument= (e) => {
-    setDocument(e.target.files[0]);
-    
-  }
-  const handleStepSelect = (e) => {
-    setStep(e.target.value);
-    setStepName(e.target.option);
-    
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = new FormData();
-    formData.append("testImage", video);
-    formData.append("video", selectedVideo);
-    formData.append("stepname", selectedStepName);
+    formData.append("document", document);
+    formData.append("feedbackId", feedbackId);
+    formData.append("stepName", stepName);
+
     try {
       await axios({
         method: "post",
@@ -55,8 +33,7 @@ function UploadDocument({ auth }) {
         headers: { "Content-Type": "multipart/form-data" },
       }).then(function (response) {
         // handle success
-        setVideo('');
-        setStep("");
+        setDocument('');
         handleClose();
 
       }).catch(function (error) {
@@ -100,22 +77,14 @@ function UploadDocument({ auth }) {
             </div>
             <div>
               <span style={{ visibility }} className="closePopupWindow" onClick={handleClose}>x</span>
-              <h1>Upload video</h1>
-              <label htmlFor="step">Step:</label>
-            <select id="step" name="step" value={selectedStep} onChange={handleStepSelect}>
-              <option value="">Select a step</option>
-              {steps.map((step) => (
-                <option key={step+'_key'} value={step._id}>
-                  {step.name}
-                </option>
-              ))}
-            </select>
-              <input type="file" name="video" id="video" onChange={handleDocument} />
+              <h1>upload document</h1>
+             
+              <input type="file" name="document" id="document" onChange={handleDocument} />
 
 
             </div>
             
-            <button id="reviewbutton"   className={` ${!video && "disabled"} ` } onClick={handleSubmit}disabled={!selectedStep}>Submit</button>
+            <button id="reviewbutton"   className={` ${!document && "disabled"} ` } onClick={handleSubmit}disabled={!document}>Submit</button>
           </div>
         </div>
 
@@ -126,15 +95,12 @@ function UploadDocument({ auth }) {
   return (
     <>
       {renderStarReviewDiv()}
-      <button id="toggleRightUploadDiv" className="actionupload" onClick={toggleVisibility}>upload video</button>
+      <button id="toggleRightUploadDiv" className="actionupload" onClick={toggleVisibility}>upload document</button>
     </>
 
   );
 };
 
-function mapStateToProps({ auth }) {
 
-  return { auth };
-}
-export default connect(mapStateToProps, {})(UploadDocument);
+export default UploadDocument;
 

@@ -14,6 +14,7 @@ function FeedbackList() {
 
     };
 
+
     return (
         <section>
             <fieldset>
@@ -23,16 +24,25 @@ function FeedbackList() {
                     {items.length > 0 &&
                         items.map(feedback => {
                             return (
-
                                 <div key={feedback._id} className="item photoThumbnail">
+                                    {feedback.videoSteps && feedback.videoSteps.step
+                                        ? `${feedback.videoSteps.step} step`
+                                        : 'No video step available'}
+                                    <br />with a focus on: {feedback.expectations} <br />feedback ordered on:{' '}
+                                    {new Date(feedback.dateSent).toLocaleDateString()}
 
-                                   step  with a focus on: {feedback.expectations} feedback ordered on: {new Date(feedback.dateSent).toLocaleDateString()}
-
+                                    {feedback.pdfPath && feedback.pdfUrl &&(
+                                        <div>
+                                           
+                                            <a href={feedback.pdfUrl}>
+                                                {feedback.videoSteps.step}
+                                            </a>
+                                        </div>
+                                    )}
                                 </div>
                             );
+                        })}
 
-                        })
-                    }
                 </div>
                 {items.length === 0 &&
                     <p className='itemp'>You don't have any feedback yet</p>

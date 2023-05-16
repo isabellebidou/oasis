@@ -26,7 +26,7 @@ function SelectedStudentVideoList() {
       setVideos(items);
     }
   };
- 
+
 
 
   const handleEditButtonToggleText = () => {
@@ -76,47 +76,50 @@ function SelectedStudentVideoList() {
 
   return (
     <section>
-      {userId &&
-        <UploadStudentVideo
-          userId={userId} />}
-      
-      <div className="grid-container">
-        {videos.length > 0 &&
-          videos.map((video) => {
-            const date = new Date(video.dateSent).toLocaleDateString();
-           // const name = userId+'-'+date+'-'+video.step;
+      <fieldset>
+        <legend><h2> User Videos</h2></legend>
+        {userId &&
+          <UploadStudentVideo
+            userId={userId} />}
 
-            return (
-              <div key={video._id + '_container'} >
-                <div className="item photoThumbnail">
+        <div className="grid-container">
+          {videos.length > 0 &&
+            videos.map((video) => {
+              const date = new Date(video.dateSent).toLocaleDateString();
+              // const name = userId+'-'+date+'-'+video.step;
 
-                  <Video
-                    id={video._id}
-                    src={video.videoUrl}
-                    alt={video.step + " video " + video.videoPath}
-                    step={video.step}
-                    dateSent={video.dateSent}
+              return (
+                <div key={video._id + '_container'} >
+                  <div className="item photoThumbnail">
 
-                  />
+                    <Video
+                      id={video._id}
+                      src={video.videoUrl}
+                      alt={video.step + " video " + video.videoPath}
+                      step={video.step}
+                      dateSent={video.dateSent}
 
-                  <input type={'checkbox'} value={video._id} style={{ visibility }} onChange={handleSelected}></input>
-                  <p className="item">
-                    {video.step} video sent on: {new Date(video.dateSent).toLocaleDateString()}<br />
-                    video id:  {video._id}
-                  </p>
+                    />
 
+                    <input type={'checkbox'} value={video._id} style={{ visibility }} onChange={handleSelected}></input>
+                    <p className="item">
+                      {video.step} video sent on: {new Date(video.dateSent).toLocaleDateString()}<br />
+                      video id:  {video._id}
+                    </p>
+
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })
+          }
+        </div>
+        {videos.length >= 1 &&
+          <>
+            <button id="editeyes" className="editeyes" onClick={toggleEditMode}>{handleEditButtonToggleText()}</button>
+            <button id="deleteeyes" className="deleteeyes" onClick={deleteVideos} style={{ visibility }} >Delete Selected</button>
+          </>
         }
-      </div>
-      {videos.length >= 1 &&
-        <>
-          <button id="editeyes" className="editeyes" onClick={toggleEditMode}>{handleEditButtonToggleText()}</button>
-          <button id="deleteeyes" className="deleteeyes" onClick={deleteVideos} style={{ visibility }} >Delete Selected</button>
-        </>
-      }
+      </fieldset>
     </section>
   );
 }

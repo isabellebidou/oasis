@@ -6,7 +6,10 @@
   --strongpink: #cd2ca0;
   --darkpurple: #7f5f87;
 }
-
+.flag{
+  color: var(--strongpink);
+  font-size: larger;
+}
 
 body,#root
 {
