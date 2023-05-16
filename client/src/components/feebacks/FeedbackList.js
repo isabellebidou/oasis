@@ -24,14 +24,11 @@ function FeedbackList() {
                         items.map(feedback => {
                             return (
 
-
                                 <div key={feedback._id} className="item photoThumbnail">
 
-                                    {feedback.expectations} reading ordered on: {new Date(feedback.dateSent).toLocaleDateString()}
+                                   step  with a focus on: {feedback.expectations} feedback ordered on: {new Date(feedback.dateSent).toLocaleDateString()}
 
                                 </div>
-
-
                             );
 
                         })

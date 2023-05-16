@@ -1,33 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import FeedbackPayment from "../FeedbackPayment";
+import Payment from "../Payment";
 import { logError } from "../../utils/utils";
 
-const FeedbackNew = () => {
+const MembershipNew = () => {
 
   const [expectations, setExpectations] = useState('');
-  const [offers, setOffers] = useState([]);
+  const [membershipOffers, setOffers] = useState([]);
   const [offerId, setOfferId] = useState('');
-  const [videos, setVideos] = useState([]);
-  const [videoId, setVideoId] = useState('');
-
 
   useEffect(() => {
     const fetchOffers = async () => {
-      const offerData = await fetch(`/api/offers/`);
-      const items = await offerData.json();
+      const membershipData = await fetch(`/api/membership/`);
+      const items = await membershipData.json();
       setOffers(items);
       setOfferId(items.length > 0 ? items[0]._id : '');
     };
     fetchOffers();
-    const fetchVideos = async () => {
-      const videoData = await fetch(`/api/user_videos/`);
-      const items = await videoData.json();
-      setVideos(items);
-      setVideoId(items.length > 0 ? items[0]._id : '');
-    };
-    fetchVideos();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -35,11 +25,11 @@ const FeedbackNew = () => {
     // 1) payment  /api/create-payment-intent
 
     try {
-      axios.post("/api/feedbacks", {  expectations, offerId})
+      axios.post("/api/membership", {  expectations, offerId})
       .then(function (response) {
         // handle success
         setExpectations('')
-        setOfferId(offers.length > 0 ? offers[0]._id : '');
+        setOfferId(membershipOffers.length > 0 ? membershipOffers[0]._id : '');
 
       }).catch(function (error) {
         // handle error
@@ -62,24 +52,15 @@ const FeedbackNew = () => {
         <select id="offerSelect" name="offerselect" value={offerId} onChange={(e) => {
           setOfferId(e.target.value);
         }}>
-          {offers.map(offer => {
+          {membershipOffers.map(membershipOffer => {
             return (
-              <option key={offer._id} value={offer._id}>{offer.name} at {offer.price} $</option>
-            );
-          })}
-        </select>
-        <select id="videoSelect" name="videoselect" value={videoId} onChange={(e) => {
-          setVideoId(e.target.value);
-        }}>
-          {videos.map(video => {
-            return (
-              <option key={video._id} value={video._id}>{video.step+'   id: '+video._id}</option>
+              <option key={membershipOffer._id} value={membershipOffer._id}>{membershipOffer.name} at {membershipOffer.price} $</option>
             );
           })}
         </select>
 
         <br />
-        <label key={14} htmlFor="expectations">question, comments?</label>
+        <label key={14} htmlFor="expectations">what is your motivation?</label>
         <input
           name="expectations"
           key={124}
@@ -90,14 +71,13 @@ const FeedbackNew = () => {
           }}
         />
 
-        <Link to="/profile" className="leftbutton">
+        <Link to="/" className="leftbutton">
         <button >{" cancel "}</button>
         </Link>
       </form>
-      <FeedbackPayment 
+      <Payment 
       expectations={expectations}
       offerId={offerId}
-      videoId={videoId}
       />
     </div>
 
@@ -105,4 +85,4 @@ const FeedbackNew = () => {
 
 }
 
-export default FeedbackNew;
+export default MembershipNew;

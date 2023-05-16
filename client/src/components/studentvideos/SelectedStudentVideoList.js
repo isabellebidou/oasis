@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import store from "../store";
 import Video from "./VideoComponent";
-import UploadSelectedStudentVideo from './UploadSelectedStudentVideo';
+import UploadStudentVideo from './UploadStudentVideo';
 import axios from "axios";
 import { logError } from "../../utils/utils";
 
 
 
-function SelectedVideoList() {
+function SelectedStudentVideoList() {
   useEffect(() => {
     fetchItems();
   }, []);
@@ -21,7 +21,7 @@ function SelectedVideoList() {
   const fetchItems = async () => {
     if (store.getState().selectedUser) {
       const userId = store.getState().selectedUser;
-      const videos = await fetch(`/api/user_videos/${userId}`);
+      const videos = await fetch(`/api/user_video/${userId}`);
       const items = await videos.json();
       setVideos(items);
     }
@@ -35,18 +35,18 @@ function SelectedVideoList() {
   const toggleEditMode = () => {
     setEditMode(!editMode)
     setVisibility(visibility === 'visible' ? 'hidden' : 'visible');
-    //fetchUserEyePics();
+
   }
   const deleteVideos = async () => {
 
     try {
-      await axios.delete("/api/user_videos/delete", {
+      await axios.delete("/api/user_video/delete", {
         data: { idsToDelete: selectedVideos }
       })
         .then(function (response) {
           // handle success
           setSelectedVideos([])
-          ///fetchUserEyePics();
+
 
         }).catch(function (error) {
           // handle error
@@ -77,38 +77,34 @@ function SelectedVideoList() {
   return (
     <section>
       {userId &&
-        <UploadSelectedStudentVideo
+        <UploadStudentVideo
           userId={userId} />}
       
       <div className="grid-container">
         {videos.length > 0 &&
           videos.map((video) => {
             const date = new Date(video.dateSent).toLocaleDateString();
-            const name = userId+'-'+date+'-'+video.step;
+           // const name = userId+'-'+date+'-'+video.step;
 
             return (
-              <div className="" key={video._id + '_container'} >
+              <div key={video._id + '_container'} >
                 <div className="item photoThumbnail">
 
-                  
-
                   <Video
-                      id={video._id}
-                      src={video.imageUrl}
-                      alt={video.step + " eye pic "+video.imageUrl}
-                      side={video.side}
-                      dateSent={video.dateSent}
+                    id={video._id}
+                    src={video.videoUrl}
+                    alt={video.step + " video " + video.videoPath}
+                    step={video.step}
+                    dateSent={video.dateSent}
 
-                    /> 
+                  />
+
                   <input type={'checkbox'} value={video._id} style={{ visibility }} onChange={handleSelected}></input>
                   <p className="item">
-                    
-                    {video.step} video sent on: {date}
+                    {video.step} video sent on: {new Date(video.dateSent).toLocaleDateString()}<br />
+                    video id:  {video._id}
                   </p>
 
-                  <a href={`https://isabelles3.s3.eu-west-1.amazonaws.com/eyepics/${video.picPath}_raw`} download={`${name}-eye-pic.png`}>
-                    Download {video.side} video
-                  </a>
                 </div>
               </div>
             );
@@ -125,4 +121,4 @@ function SelectedVideoList() {
   );
 }
 
-export default SelectedVideoList
+export default SelectedStudentVideoList

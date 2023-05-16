@@ -33,35 +33,7 @@ module.exports = (app) => {
   }
   //https://www.youtube.com/watch?v=MJhsVDpYzQs&ab_channel=Koding101
 
-  const sendNewVideoUploadEmail = (file, user, side) => {
-    return new Promise((resolve, reject) => {
 
-
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'isa.bidou@gmail.com',
-          pass: keys.nodemailer
-        },
-        from: 'isa.bidou@gmail.com',
-      })
-
-      const mail_option = {
-        from: 'isa.bidou@gmai.com',
-        to: 'isa.bidou@gmai.com',
-        subject: 'new video pic upload: ' + side,
-        text: 'an video pic was uploaded. filename : ' + file + ' user id: ' + user + ' video side : ' + side,
-      }
-
-      transporter.sendMail(mail_option, (error, info) => {
-        if (error) {
-         // logError(error)
-          return reject({ message: `an error has occured` })
-        }
-        return resolve({ message: `email sent successfully` })
-      })
-    });
-  }
 
 
   app.delete("/api/user_video/delete", async (req, res) => {
@@ -102,17 +74,51 @@ module.exports = (app) => {
       res.status(500).send({ error: 'Internal Server Error' });
     }
   });
+
+  app.get("/api/selected_user_videos/:id", async (req, res) => {
+    try {
+      const videos = await StudentVideo.find({ _user: req.user.id });
+      const videoPromises = videos.map(async (video) => {
+        //const videoName = 'student/'+req.user.id+'/'+video.step
+        video.videoUrl = await getObjectSignedUrl(video.videoPath);
+       
+      /* const path =  getSignedUrl({
+        url: cloudfrontDomain + video.videoPath,
+        dateLessThan: new Date(Date.now()+ 1000 * 60 * 60 * 2),
+        privateKey: keys.cloudfrontPrivateKey,
+        keyPairId:keys.cloudfrontKeyPairId
+       })*/
+       
+       // video.videoUrl = path;
+        return video;
+      });
+      const videosWithUrls = await Promise.all(videoPromises);
+      res.send(videosWithUrls);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
   app.get("/api/video/:id", async (req, res) => {
     try {
       const videos = await StudentVideo.find({ _id: req.params.id });
       const videoPromises = videos.map(async (video) => {
-        const path = await getObjectSignedUrl("videopics/" + video.picPath + '_raw');
-        return path;
-         
+        //const videoName = 'student/'+req.user.id+'/'+video.step
+        video.videoUrl = await getObjectSignedUrl(video.videoPath);
+       
+      /* const path =  getSignedUrl({
+        url: cloudfrontDomain + video.videoPath,
+        dateLessThan: new Date(Date.now()+ 1000 * 60 * 60 * 2),
+        privateKey: keys.cloudfrontPrivateKey,
+        keyPairId:keys.cloudfrontKeyPairId
+       })*/
+       
+       // video.videoUrl = path;
+        return video;
       });
-      const url = await Promise.all(videoPromises);
-      res.send(url);
-    } catch (error) {
+      const videosWithUrls = await Promise.all(videoPromises);
+      res.send(videosWithUrls);
+    }  catch (error) {
       console.error(error);
       res.status(500).send({ error: 'Internal Server Error' });
     }
@@ -123,13 +129,22 @@ module.exports = (app) => {
     try {
       const videos = await StudentVideo.find({ _user: req.params.id });
       const videoPromises = videos.map(async (video) => {
-        const path = await getObjectSignedUrl("videopics/" + video.picPath + '_resized');
-        video.imageUrl = path;
+        //const videoName = 'student/'+req.user.id+'/'+video.step
+        video.videoUrl = await getObjectSignedUrl(video.videoPath);
+       
+      /* const path =  getSignedUrl({
+        url: cloudfrontDomain + video.videoPath,
+        dateLessThan: new Date(Date.now()+ 1000 * 60 * 60 * 2),
+        privateKey: keys.cloudfrontPrivateKey,
+        keyPairId:keys.cloudfrontKeyPairId
+       })*/
+       
+       // video.videoUrl = path;
         return video;
       });
       const videosWithUrls = await Promise.all(videoPromises);
       res.send(videosWithUrls);
-    } catch (error) {
+    }  catch (error) {
       console.error(error);
       res.status(500).send({ error: 'Internal Server Error' });
     }
@@ -169,13 +184,14 @@ module.exports = (app) => {
   
     const video = new StudentVideo({
 
-      step: req.body.step,
+      _step: req.body.step,
       _user: req.user.id,
       dateSent: Date.now(),
       videoPath: videoName,
       type: req.file.mimetype,
       comment: 'test',
-      originalname: req.file.originalname
+      originalname: req.file.originalname,
+      step:req.body.stepname
     });
    
 
@@ -204,7 +220,7 @@ module.exports = (app) => {
   
     const video = new TeacherVideo({
 
-      step: req.body.step,
+      _step: req.body.step,
       _user: req.user.id,
       dateSent: Date.now(),
       videoPath: videoName,

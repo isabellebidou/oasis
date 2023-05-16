@@ -12,7 +12,7 @@ function SelectedFeedbackList() {
     const fetchItems = async () => {
         if (store.getState().selectedUser) {
             const userId = store.getState().selectedUser;
-            const userData =  await fetch(`/api/readings/${userId}`);
+            const userData =  await fetch(`/api/feedback/${userId}`);
             const items = await userData.json();
         setItems(items);
           }
@@ -22,14 +22,14 @@ function SelectedFeedbackList() {
         <section>
             <div className="grid-container">
             {
-            items.map(reading => {
+            items.map(feedback => {
                 return (
     
-                    <div className="" key={reading._id}>
+                    <div className="" key={feedback._id}>
                     <div className="item photoThumbnail">
                       
                       <p className="item">
-                      {reading.expectations} reading ordered on: {new Date(reading.dateSent).toLocaleDateString()}
+                      {feedback.expectations} reading ordered on: {new Date(feedback.dateSent).toLocaleDateString()}
                       </p>
                     </div>
                   </div>

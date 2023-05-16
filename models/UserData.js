@@ -5,8 +5,6 @@ const {Schema} = mongoose; // =const Schema = mongoose.Schema;  es2015 destructu
 const userDataSchema = new Schema ({
     fname: String,
     lname: String,
-    gender:String,
-    dob: Date,
     _user: {type:Schema.Types.ObjectId, ref: 'User' }
 
  

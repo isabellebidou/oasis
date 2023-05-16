@@ -20,7 +20,7 @@ class ImageComponent extends React.Component {
       <video  
       loading="lazy"
       onContextMenu={e => e.preventDefault()}  
-      controls autoPlay 
+      controls  
       controlsList="nodownload" 
       //oncontextmenu="return false;" 
       id={this.props.id}

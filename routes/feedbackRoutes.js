@@ -139,35 +139,33 @@ app.get("/api/testemail",  (req, res) => {
     res.send(feedbacks);
 
   })
-  app.get("/api/feedbacks/:id", requireLogin, async (req, res) => {
+  app.get("/api/feedback/:id", requireLogin, async (req, res) => {
     const feedbacks = await Feedback.find({ _user: req.params.id });
     res.send(feedbacks);
 
   })
-  app.post("/api/feedbacks", requireLogin, async (req, res) => {
-    const { expectations, offerId } = req.body;
+  app.post("/api/feedback", requireLogin, async (req, res) => {
+    const {  offerId, expectations, videoId } = req.body;
+    console.log(videoId)
     const feedback = new Feedback({
       expectations,
       _offer: offerId,
       _user: req.user.id,
+      _studentVideo: videoId,
       dateSent: Date.now()
     });
-    Feedback.save().then((res) => {
-      
-
-    }).catch((err) => { //logError(err) 
-    });
+  
     try {
-
       req.user.numberOfFeedbacks += 1;
-      //sendNewFeedbackEmail(offerId,req.user.id, Feedback._id)
       const user = await req.user.save();
+  
+      await feedback.save(); // Save the feedback instance to the database
+  
       res.send(feedback);
-
     } catch (error) {
       res.status(422).send(error);
     }
-
   });
+  
 
 };

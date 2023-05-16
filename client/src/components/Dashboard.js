@@ -7,6 +7,7 @@ import TeacherVideosList from './teachervideos/TeacherVideosList';
 
 import Buttons from './Buttons';
 import StarReview from './StarReview';
+import UserData from './userData/UserDataList';
 //import Landing from './Landing';
 
 
@@ -18,6 +19,7 @@ const Dashboard = () => {
         <div className="page">
             <StarReview />
             <Buttons />
+            <UserData />
        
             <FeedbackList />
   

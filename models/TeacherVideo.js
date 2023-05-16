@@ -3,7 +3,7 @@ const {Schema} = mongoose; // =const Schema = mongoose.Schema;  destructuring
 
 
 const teachervideoSchema = new Schema ({
-    step: String,
+    _step: {type:Schema.Types.ObjectId, ref: 'Step' },
     _user: {type:Schema.Types.ObjectId, ref: 'User' },
     dateSent: {type: Date, default:Date.now()},
     videoPath: String,

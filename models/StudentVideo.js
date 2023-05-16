@@ -3,8 +3,9 @@ const {Schema} = mongoose; // =const Schema = mongoose.Schema;  destructuring
 
 
 const studentvideoSchema = new Schema ({
-    step: String,
+    _step: {type:Schema.Types.ObjectId, ref: 'Step' },
     _user: {type:Schema.Types.ObjectId, ref: 'User' },
+    step: String,
     dateSent: {type: Date, default:Date.now()},
     videoPath: String,
     videoUrl :String,

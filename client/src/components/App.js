@@ -18,6 +18,7 @@ import UserDataFormNew from "./userData/UserDataFormNew";
 import Videos from "./Videos";
 import Uploadvideo from "./teachervideos/UploadTeacherVideo";
 import StudentVideo from "./StudentVideo";
+import Membership from "./membership/MembershipNew";
 import ProtectedRoute from "./ProtectedRoute";
 //import RestrictedRoute from "./RestrictedRoute";
 import AdminDashboard  from "./AdminDashboard";
@@ -27,6 +28,7 @@ import LinkList from "./links/LinkList";
 import LinkForm from "./links/LinkForm";
 import Payment from "./Payment";
 import Completion from "./Completion";
+import FeedbackCompletion from "./FeedbackCompletion";
 import LegalNotice from "./LegalNotice";
 import MentionsLegales from "./MentionsLegales";
 import Shop from "./Shop";
@@ -55,9 +57,10 @@ class App extends Component {
             <Route exact path="/profile" component={Dashboard} />
             <Route exact path="/videos" component={VideoDashboard} />
             <Route exact path="/shop" component={Shop} />
-            
+            <Route exact path="/membership" component={Membership} />
             <Route path="/payment" component={Payment } />
             <Route exact path="/completion" component={Completion } />
+            <Route exact path="/feedbackcompletion" component={FeedbackCompletion } />
             <ProtectedRoute exact path="/feedbacks/new" component={FeedbackNew} />
             <ProtectedRoute exact path="/userdata/new" component={UserDataFormNew} />
             <ProtectedRoute exact path="/userdata" component={UserData} />

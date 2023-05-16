@@ -24,7 +24,7 @@ class ImageComponent extends React.Component {
 
       <video  
       onContextMenu={e => e.preventDefault()}  
-      controls autoPlay 
+      controls 
       controlsList="nodownload" 
       //oncontextmenu="return false;" 
       id={this.props.id}

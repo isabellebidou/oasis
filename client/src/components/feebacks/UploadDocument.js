@@ -9,12 +9,12 @@ import axios from "axios";
 
 //https://www.youtube.com/watch?v=McF22__Jz_I&t=372s&ab_channel=V%E1%BB%89%C4%90%E1%BA%B7ng
 //https://codesandbox.io/s/comment-product-yelj6?file=/package.json
-function UploadVideo({ auth }) {
-    const [video, setVideo] = useState('');
+function UploadDocument({ auth }) {
+    const [document, setDocument] = useState('');
     const [visibility, setVisibility] = useState("hidden");
-    const [selectedStep, setStep] = useState("");//
+    const [selectedVideo, setVideo] = useState("");//
     const [selectedStepName, setStepName] = useState("");//
-    const [steps, setSteps] = useState([]);
+    
     useEffect(() => {
         fetchSteps();
     }, []);
@@ -31,8 +31,8 @@ function UploadVideo({ auth }) {
   }, [auth]);
 
 
-   const handleVideo= (e) => {
-    setVideo(e.target.files[0]);
+   const handleDocument= (e) => {
+    setDocument(e.target.files[0]);
     
   }
   const handleStepSelect = (e) => {
@@ -45,12 +45,12 @@ function UploadVideo({ auth }) {
     event.preventDefault()
     const formData = new FormData();
     formData.append("testImage", video);
-    formData.append("step", selectedStep);
+    formData.append("video", selectedVideo);
     formData.append("stepname", selectedStepName);
     try {
       await axios({
         method: "post",
-        url: "/api/video_upload",
+        url: "/api/document_upload",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then(function (response) {
@@ -110,7 +110,7 @@ function UploadVideo({ auth }) {
                 </option>
               ))}
             </select>
-              <input type="file" name="video" id="video" onChange={handleVideo} />
+              <input type="file" name="video" id="video" onChange={handleDocument} />
 
 
             </div>
@@ -136,5 +136,5 @@ function mapStateToProps({ auth }) {
 
   return { auth };
 }
-export default connect(mapStateToProps, {})(UploadVideo);
-//taxeem
+export default connect(mapStateToProps, {})(UploadDocument);
+

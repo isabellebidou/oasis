@@ -21,9 +21,12 @@ class Header extends Component {
   renderContent() {
 
     const isAdmin = this.props.auth && this.props.auth.type === 'admin';
-    const isMember = this.props.auth && this.props.auth.type === 'member';
     const isOnProfile = this.props.location.pathname === '/profile';
     const isHome = this.props.location.pathname === '/';
+    const existingMembership = this.props.auth && this.props.auth.hasMembership;
+    const currentDate = new Date();
+    const isMember = this.props.auth && existingMembership > currentDate? true : false;
+  
 
 
     return (

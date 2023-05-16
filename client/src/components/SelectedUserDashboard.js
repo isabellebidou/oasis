@@ -1,7 +1,7 @@
 import React from "react";
 import SelectedUserFeedbackList from './feebacks/SelectedFeedbackList';
 import SelectedUserUserData from './SelectedUserData';
-import SelectedVideoList from './studentvideos/SelectedStudentVideoList';
+import SelectedUserVideoList from './studentvideos/SelectedStudentVideoList';
 
 
 class SelectedUserDashboard extends React.Component{
@@ -12,8 +12,8 @@ class SelectedUserDashboard extends React.Component{
     return(
         <div className="page">
             <SelectedUserFeedbackList />
-            <SelectedUserUserData />
-            <SelectedVideoList />
+        
+            <SelectedUserVideoList />
         </div>
     )
 

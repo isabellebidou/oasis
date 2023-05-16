@@ -66,17 +66,16 @@ class Landing extends Component {
     };
 
     renderButton() {
-        if (this.props.auth) {
-            return (
 
-                <Link to="/profile" className="">
+        if (this.props.auth  && !this.props.auth.hasMembership) {
+            return (
+                <Link to="/membership" className="">
                     <button className="actionbook" >become a member today</button>
                 </Link>
-
             );
 
 
-        } else {
+        } else if (!this.props.auth) {
             return (
                 <span className="actionsign button" >
                     Sign in and get your membership today!<br />

@@ -41,5 +41,16 @@ module.exports = (app) => {
     ]);
     res.send(users);
   });
+
+
+  app.get("/api/selected_user/:id", async (req, res) => {
+    try {
+      const userData = await User.find({ _user: req.params.id  });
+      res.send(userData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
 }
 

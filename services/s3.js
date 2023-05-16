@@ -47,8 +47,7 @@ function deleteFile(fileName) {
 }
 
 async function getObjectSignedUrl(key) {
-    console.log('getObjectSignedUrl')
-    console.log(key)
+
     const params = {
         Bucket: bucketName,
         Key: key
@@ -58,7 +57,7 @@ async function getObjectSignedUrl(key) {
     const command = new GetObjectCommand(params);
     const seconds = 60*60
     const url = await getSignedUrl(s3Client, command, { expiresIn: seconds });
-    console.log(url)
+
     return url
 }
 

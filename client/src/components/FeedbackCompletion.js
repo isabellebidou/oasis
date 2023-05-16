@@ -3,15 +3,16 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { logError } from "../utils/utils";
 
-const Completion = () => {
-  const { offerId, expectations } = queryString.parse(window.location.search);
+const FeedbackCompletion = () => {
+  const { offerId, expectations, videoId } = queryString.parse(window.location.search);
   const [feedbackId, setFeedbackId] = useState("");
   useEffect(() => {
-    postFeed(offerId, expectations);
+    postFeed(offerId, expectations,videoId );
   }, []);
-  const postFeed = async (offerId, expectations) => {
+  const postFeed = async (offerId, expectations, videoId) => {
+    console.log(videoId)
     try {
-      axios.post("/api/membershipupdate", { expectations, offerId })
+      axios.post("/api/feedback", { expectations, offerId, videoId})
         .then(function (response) {
           // handle success
           setFeedbackId(response.data._id)
@@ -31,7 +32,7 @@ const Completion = () => {
 
   return (
     <div className='page'>
-      <h1>Thank you! 🎉</h1>
+      <h1>Thank you for booking a feedback! 🎉</h1>
       <p className='itemp'>Offer Id: {offerId}</p>
       <p className='itemp'>Expectations: {expectations}</p>
       
@@ -39,5 +40,5 @@ const Completion = () => {
   );
 };
 
-export default Completion;
+export default FeedbackCompletion;
 

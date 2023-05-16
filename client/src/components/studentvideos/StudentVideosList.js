@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import Video from "./VideoComponent";
 import UploadStudentVideo from './UploadStudentVideo';
+import { Link } from "react-router-dom";
 
 import { fetchUserVideos } from "../../actions";
 import axios from "axios";
@@ -21,8 +22,8 @@ function StudentVideoList({ videos, fetchUserVideos }) {
   const [editMode, setEditMode] = useState(false);
   const [selectedVideos, setSelectedVideos] = useState([]);
 
-  
-  
+
+
   const handleEditButtonToggleText = () => {
     return editMode ? 'Disable edit' : 'Enable edit';
   }
@@ -72,22 +73,21 @@ function StudentVideoList({ videos, fetchUserVideos }) {
     <section>
       <fieldset id="myvideos">
         <legend><h2>My videos</h2></legend>
-       
+
         <div className="grid-container" >
           {videos.length > 0 &&
             videos.map((video) => {
-              console.log('video')
-              console.log(video)
- 
+    
+
 
               return (
-                <div  key={video._id + '_container'} >
+                <div key={video._id + '_container'} >
                   <div className="item photoThumbnail">
 
-                  <Video
+                    <Video
                       id={video._id}
                       src={video.videoUrl}
-                      alt={video.step + " video "+video.videoPath}
+                      alt={video.step + " video " + video.videoPath}
                       step={video.step}
                       dateSent={video.dateSent}
 
@@ -95,8 +95,10 @@ function StudentVideoList({ videos, fetchUserVideos }) {
 
                     <input type={'checkbox'} value={video._id} style={{ visibility }} onChange={handleSelected}></input>
                     <p className="item">
-                      {video.step} video sent on: {new Date(video.dateSent).toLocaleDateString()}
+                      {video.step} video sent on: {new Date(video.dateSent).toLocaleDateString()}<br />
+                      video id:  {video._id}
                     </p>
+
                   </div>
                 </div>
               );
@@ -117,7 +119,7 @@ function StudentVideoList({ videos, fetchUserVideos }) {
 }
 
 function mapStateToProps({ videos }) {
-  
+
 
   return { videos };
 }

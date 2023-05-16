@@ -1,59 +1,59 @@
-import React from "react";
-import { Component } from "react";
-import { connect } from "react-redux";
-import { fetchUserData } from "../../actions";
 
-class DataList extends Component {
+import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+//<p>{JSON.stringify(auth)}</p>
+function DataList() {
+    const auth = useSelector(state => state.auth);
+    const [isMember, setIsMember] = useState('');
+    const [endOfMembership, setEndOfMembership] = useState('');
+    const [membershipOutDated, setOutdated] = useState('');
 
-    componentDidMount() {
-        this.props.fetchUserData();
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    }
-    /*
-    gender:String,
-    dob: Date,
-    weight: String,
-    height: String,
-    history: String,
-    genetics: String,
-    gluten: String,
-    dairy: String,
-    dentalHistory: String,
-    bloodType: String,
-    digestion: String,
-    */
-    renderUserData() {
-        return this.props.userData.reverse().map( data => {
-            return (
-                <div className="" key={data._id}>
-                
-                    <div className="">
-                        <span className="card-title">{data._user}</span>
- 
-                        <p className="right">
-                        dob: {new Date(data.dob).toLocaleDateString()}</p>
-                    </div>
+    const fetchData = async () => {
 
-                </div>
-            );
+        const currentDate = new Date();
+        const existingMembership = auth && auth.hasMembership ? new Date(auth.hasMembership) : null;
+        const isMember = auth && existingMembership && existingMembership > currentDate ? true : false;
+        const membershipOutDated = auth && existingMembership && existingMembership < currentDate? true : false;
+        setIsMember(isMember);
+        setOutdated(membershipOutDated);
+        const endOfMembership = existingMembership ? existingMembership.toLocaleDateString() : null;
+        setEndOfMembership(endOfMembership);
+    };
 
-        });
 
-    }
-
-    render () {
+    const renderUserData = () => {
         return (
-            <div>
-            <h3>dataList</h3>
-            {this.renderUserData()}
+            <div className="" key={'userdatakey'}>
+                
+                {isMember &&
+                    <p className="itemp">
+                        membership access until:  {endOfMembership}
+                    </p>
+                }
+                {membershipOutDated &&
+                    <p className="">
+                        membership access ended:  {endOfMembership}
+                    </p>
+                }
+                {!isMember &&
+                    <Link to="/membership" className="">
+                    <button className="" >get or renew membership access today</button>
+                </Link>
+                }
             </div>
-
         );
     }
-}
 
-function mapStateToProps ({userData}) {
-    return { userData }
-}
+    return (
+        <>
+            {renderUserData()}
+        </>
+    );
+};
 
-export default connect (mapStateToProps, {fetchUserData})(DataList);
+export default DataList;
